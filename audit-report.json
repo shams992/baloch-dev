@@ -1,0 +1,203 @@
+{
+  "pass": 42,
+  "fail": 4,
+  "warn": 3,
+  "details": {
+    "Table: profiles": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: categories": {
+      "ok": true,
+      "detail": "1 row(s) returned"
+    },
+    "Table: seller_stores": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: products": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: product_images": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: cart_items": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: wishlist": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: addresses": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: orders": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: order_items": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: payments": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: reviews": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: conversations": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: messages": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: notifications": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "Table: platform_settings": {
+      "ok": true,
+      "detail": "1 row(s) returned"
+    },
+    "Table: reports": {
+      "ok": true,
+      "detail": "0 row(s) returned"
+    },
+    "profiles columns": {
+      "ok": "warn",
+      "detail": "No profile rows to inspect columns — will check via INSERT attempt"
+    },
+    "seller_stores columns": {
+      "ok": "warn",
+      "detail": "No store rows to inspect"
+    },
+    "RLS: categories readable by anon": {
+      "ok": true,
+      "detail": "1 rows"
+    },
+    "RLS: products readable by anon": {
+      "ok": true,
+      "detail": "0 rows"
+    },
+    "RLS: product_images readable by anon": {
+      "ok": true,
+      "detail": "0 rows"
+    },
+    "RLS: orders blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: payments blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: addresses blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: cart_items blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: wishlist blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: notifications blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: profiles blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: public_profiles view readable": {
+      "ok": true,
+      "detail": "0 rows"
+    },
+    "RLS: seller_stores readable by anon (approved)": {
+      "ok": true,
+      "detail": "0 rows"
+    },
+    "RLS: messages blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RLS: conversations blocked for anon": {
+      "ok": true,
+      "detail": "Correctly blocked"
+    },
+    "RPC: check_email_exists": {
+      "ok": true,
+      "detail": "Result: false"
+    },
+    "RPC: check_username_exists": {
+      "ok": true,
+      "detail": "Result: false"
+    },
+    "RPC: place_order": {
+      "ok": true,
+      "detail": "Exists and requires auth"
+    },
+    "RPC: set_order_item_status": {
+      "ok": true,
+      "detail": "Exists and works"
+    },
+    "Function: my_role": {
+      "ok": true,
+      "detail": "Exists"
+    },
+    "Function: handle_new_user (trigger)": {
+      "ok": true,
+      "detail": "Verified by trigger existence check below"
+    },
+    "Storage bucket: product-images": {
+      "ok": false,
+      "detail": "Missing"
+    },
+    "Storage bucket: store-branding": {
+      "ok": false,
+      "detail": "Missing"
+    },
+    "Storage bucket: profile-images": {
+      "ok": false,
+      "detail": "Missing"
+    },
+    "Storage bucket: category-images": {
+      "ok": false,
+      "detail": "Missing"
+    },
+    "banner column": {
+      "ok": "warn",
+      "detail": "No stores to inspect — need to check via information_schema"
+    },
+    "order_items.product_id query": {
+      "ok": true,
+      "detail": "189ms — fast (index likely exists)"
+    },
+    "platform_settings": {
+      "ok": true,
+      "detail": "Commission: 8%, Currency: PKR, Name: Baloch Export Hub"
+    },
+    "platform_settings.commission_rate": {
+      "ok": true,
+      "detail": "8"
+    },
+    "platform_settings.allow_registrations": {
+      "ok": true,
+      "detail": "true"
+    },
+    "platform_settings.auto_approve_stores": {
+      "ok": true,
+      "detail": "false"
+    }
+  }
+}
