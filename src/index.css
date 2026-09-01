@@ -182,8 +182,24 @@ img, video {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 1.25rem;
-  min-width: 0;
-  max-width: 100%;
+}
+
+/* Layout shrink-wrap for in-flow cards. Kept in a layer so overlay
+   utilities / inline positioning can override it. */
+@layer components {
+  .card {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* Floating menus/dropdowns — never inherit the in-flow max-width constraint */
+.overlay-panel {
+  min-width: 12rem;
+  max-width: calc(100vw - 1rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .hairline {

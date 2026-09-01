@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
@@ -250,11 +251,13 @@ export function Modal({
     return () => window.removeEventListener('keydown', h)
   }, [open, onClose])
 
-  return (
+  if (typeof document === 'undefined') return null
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[120] grid place-items-center overflow-y-auto bg-black/55 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[190] grid place-items-center overflow-y-auto bg-black/55 p-4 backdrop-blur-sm"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           onClick={onClose}
           role="dialog" aria-modal="true" aria-label={title}
@@ -267,7 +270,7 @@ export function Modal({
           >
             <div className="mb-4 flex items-start justify-between gap-3">
               {title && <h3 className="min-w-0 flex-1 font-display text-lg font-semibold sm:text-xl">{title}</h3>}
-              <button onClick={onClose} className="rounded-full p-2 text-muted transition hover:bg-surface-2 hover:text-fg" aria-label="Close dialog">
+              <button type="button" onClick={onClose} className="rounded-full p-2 text-muted transition hover:bg-surface-2 hover:text-fg" aria-label="Close dialog">
                 <X size={18} />
               </button>
             </div>
@@ -275,7 +278,8 @@ export function Modal({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   )
 }
 

@@ -10,6 +10,7 @@ import { useAuth, useDb } from '@/lib/providers'
 import { auth, cart, messaging, notifications } from '@/lib/db'
 import { Avatar, Button, Logo } from '@/components/ui'
 import { ThemeSwitcher } from '@/components/layout/ThemeSwitcher'
+import { AnchoredOverlay } from '@/components/shared/AnchoredOverlay'
 
 const LINKS = [
   { to: '/', label: 'Home' },
@@ -29,7 +30,7 @@ export default function Navbar() {
   const { user } = useAuth()
   useDb() // live cart / message badges
   const location = useLocation()
-  const menuRef = useRef<HTMLDivElement>(null)
+  const menuBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
@@ -46,14 +47,6 @@ export default function Navbar() {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = prev }
   }, [open])
-
-  useEffect(() => {
-    const h = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenu(false)
-    }
-    document.addEventListener('mousedown', h)
-    return () => document.removeEventListener('mousedown', h)
-  }, [])
 
   const unreadNotifs = user ? notifications.unreadCount(user.id) : 0
   const unreadMsgs = user
@@ -124,44 +117,47 @@ export default function Navbar() {
           )}
 
           {user ? (
-            <div className="relative" ref={menuRef}>
+            <>
               <button
+                ref={menuBtnRef}
+                type="button"
                 onClick={() => setMenu((m) => !m)}
                 className="flex items-center gap-1.5 rounded-full p-0.5 pr-2 transition hover:bg-surface-2"
-                aria-label="Account menu" aria-expanded={menu}
+                aria-label="Account menu" aria-expanded={menu} aria-haspopup="menu"
               >
                 <Avatar name={user.full_name} color={user.avatar_color} size={32} />
                 <ChevronDown size={14} className={cn('hidden text-muted transition-transform sm:block', menu && 'rotate-180')} />
               </button>
-              <AnimatePresence>
-                {menu && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                    transition={{ duration: 0.18 }}
-                    className="card absolute right-0 top-12 w-60 max-w-[calc(100vw-1rem)] overflow-hidden p-2 shadow-2xl"
-                  >
-                    <div className="border-b border-line px-3 py-2.5">
-                      <p className="truncate text-sm font-semibold">{user.full_name}</p>
-                      <p className="truncate text-xs text-faint">@{user.username} · {user.role}</p>
-                    </div>
-                    <MenuLink to={dashboardTo} icon={<LayoutDashboard size={15} />} label="Dashboard" badge={unreadNotifs ? String(unreadNotifs) : undefined} />
-                    {user.role === 'seller' && <MenuLink to="/dashboard" icon={<ShoppingBag size={15} />} label="Buyer Dashboard" />}
-                    {user.role !== 'buyer' && <MenuLink to="/seller" icon={<Store size={15} />} label="Seller Studio" />}
-                    {user.role === 'admin' && <MenuLink to="/admin" icon={<ShieldCheck size={15} />} label="Admin Panel" />}
-                    {user.role === 'admin' && <MenuLink to="/dashboard" icon={<ShoppingBag size={15} />} label="Buyer Dashboard" />}
-                    <MenuLink to="/dashboard/wishlist" icon={<Heart size={15} />} label="Wishlist" />
-                    <MenuLink to="/dashboard/orders" icon={<Package size={15} />} label="My Orders" />
-                    <MenuLink to="/dashboard/settings" icon={<Settings size={15} />} label="Settings" />
-                    <button
-                      onClick={() => { auth.signOut(); window.location.assign('/') }}
-                      className="mt-1 flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-rose-500 transition hover:bg-rose-500/10"
-                    >
-                      <LogOut size={15} /> Sign out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+              <AnchoredOverlay
+                open={menu}
+                onClose={() => setMenu(false)}
+                anchorRef={menuBtnRef}
+                role="menu"
+                ariaLabel="Account menu"
+                width={240}
+                className="p-2"
+              >
+                <div className="border-b border-line px-3 py-2.5">
+                  <p className="truncate text-sm font-semibold">{user.full_name}</p>
+                  <p className="truncate text-xs text-faint">@{user.username} · {user.role}</p>
+                </div>
+                <MenuLink to={dashboardTo} icon={<LayoutDashboard size={15} />} label="Dashboard" badge={unreadNotifs ? String(unreadNotifs) : undefined} />
+                {user.role === 'seller' && <MenuLink to="/dashboard" icon={<ShoppingBag size={15} />} label="Buyer Dashboard" />}
+                {user.role !== 'buyer' && <MenuLink to="/seller" icon={<Store size={15} />} label="Seller Studio" />}
+                {user.role === 'admin' && <MenuLink to="/admin" icon={<ShieldCheck size={15} />} label="Admin Panel" />}
+                {user.role === 'admin' && <MenuLink to="/dashboard" icon={<ShoppingBag size={15} />} label="Buyer Dashboard" />}
+                <MenuLink to="/dashboard/wishlist" icon={<Heart size={15} />} label="Wishlist" />
+                <MenuLink to="/dashboard/orders" icon={<Package size={15} />} label="My Orders" />
+                <MenuLink to="/dashboard/settings" icon={<Settings size={15} />} label="Settings" />
+                <button
+                  type="button"
+                  onClick={() => { auth.signOut(); window.location.assign('/') }}
+                  className="mt-1 flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-rose-500 transition hover:bg-rose-500/10"
+                >
+                  <LogOut size={15} /> Sign out
+                </button>
+              </AnchoredOverlay>
+            </>
           ) : (
             <div className="hidden items-center gap-2 sm:flex">
               <Button to="/login" variant="ghost" size="sm">Login</Button>
@@ -258,7 +254,7 @@ export default function Navbar() {
 
 function MenuLink({ to, icon, label, badge }: { to: string; icon: React.ReactNode; label: string; badge?: string }) {
   return (
-    <NavLink to={to} className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-fg transition hover:bg-surface-2">
+    <NavLink to={to} role="menuitem" className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-fg transition hover:bg-surface-2">
       <span className="text-muted">{icon}</span> {label}
       {badge && <span className="ml-auto grid h-4 min-w-4 place-items-center rounded-full bg-crimson px-1 text-[0.6rem] font-bold text-white">{badge}</span>}
     </NavLink>
