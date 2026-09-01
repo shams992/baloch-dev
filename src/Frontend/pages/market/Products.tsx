@@ -118,7 +118,7 @@ export function ProductBrowser({ initialQuery = '', fixedCategory, hideWhenQuery
 
   return (
     <section className="py-12">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-7xl px-3 sm:px-8">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
           {/* filters */}
           <aside className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
@@ -147,7 +147,7 @@ export function ProductBrowser({ initialQuery = '', fixedCategory, hideWhenQuery
 
               <div>
                 <span className="mb-1.5 block text-[0.72rem] font-bold uppercase tracking-wider text-faint">Rating</span>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {[0, 3, 4, 4.5].map((r) => (
                     <button
                       key={r} onClick={() => setMinRating(r)}

@@ -98,7 +98,7 @@ export function StatsStrip() {
           <Reveal key={it.label} delay={i * 0.08} className="text-center">
             <span className="mx-auto mb-3 grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-gold/25 to-brand/25 text-gold">{it.icon}</span>
             <p className="font-display text-3xl font-semibold tnum sm:text-4xl">{it.value}</p>
-            <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-faint">{it.label}</p>
+            <p className="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-faint sm:text-[0.72rem] sm:tracking-[0.16em]">{it.label}</p>
           </Reveal>
         ))}
       </div>

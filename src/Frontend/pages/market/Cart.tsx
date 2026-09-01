@@ -36,8 +36,8 @@ export function CartPage() {
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_22rem]">
           <ul className="space-y-4">
             {items.map(({ product, qty }) => (
-              <li key={product.id} className="card flex gap-4 p-4">
-                <Link to={`/product/${product.id}`} className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-surface-2">
+              <li key={product.id} className="card flex gap-3 p-3 sm:gap-4 sm:p-4">
+                <Link to={`/product/${product.id}`} className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-surface-2 sm:h-24 sm:w-24">
                   {product.image
                     ? <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
                     : <span className="grid h-full w-full place-items-center text-faint"><Package size={22} /></span>}
@@ -169,7 +169,7 @@ export function CheckoutPage() {
         <div className="space-y-6">
           {/* address */}
           <section className="card p-6" aria-labelledby="co-address">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h2 id="co-address" className="flex items-center gap-2 font-display text-lg font-semibold"><MapPin size={17} className="text-gold" /> Delivery address</h2>
               <button onClick={() => setShowAddr((s) => !s)} className="text-sm font-semibold text-brand hover:underline dark:text-gold">
                 {showAddr ? 'Cancel' : '+ Add address'}

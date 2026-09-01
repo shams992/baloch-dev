@@ -33,7 +33,7 @@ export function SellerProducts() {
         <EmptyState icon={<PackagePlus size={26} />} title="No products yet"
           sub="List your first piece — photos, price, stock, and it's live." action={<Button to="/seller/add-product" variant="gold" size="sm">Add your first product</Button>} />
       ) : (
-        <div className="card overflow-x-auto p-5">
+        <div className="card table-scroll p-5">
           <table className="w-full min-w-[46rem] text-sm">
             <thead>
               <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-faint">
@@ -164,7 +164,7 @@ export function SellerAddProduct() {
 
   return (
     <form onSubmit={submit} className="max-w-3xl space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h3 className="font-display text-xl font-semibold">{existing ? 'Edit product' : 'Add a new product'}</h3>
         {saved && <Badge tone="green">Saved — redirecting…</Badge>}
       </div>

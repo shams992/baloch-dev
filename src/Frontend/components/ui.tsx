@@ -22,16 +22,16 @@ export function Octagram({ size = 36, className }: { size?: number; className?: 
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link to="/" className="group inline-flex items-center gap-2.5" aria-label="Baloch Export Hub — home">
-      <span className="relative grid place-items-center">
-        <Octagram size={34} className="transition-transform duration-700 group-hover:rotate-90" />
+    <Link to="/" className="group inline-flex min-w-0 max-w-full items-center gap-1.5 sm:gap-2.5" aria-label="Baloch Export Hub — home">
+      <span className="relative grid shrink-0 place-items-center">
+        <Octagram size={34} className="h-7 w-7 transition-transform duration-700 group-hover:rotate-90 sm:h-8 sm:w-8 lg:h-[34px] lg:w-[34px]" />
       </span>
       {!compact && (
-        <span className="flex flex-col">
-          <span className="block font-display text-[1.05rem] font-semibold leading-none tracking-tight">
+        <span className="flex min-w-0 flex-col">
+          <span className="block truncate font-display text-[0.88rem] font-semibold leading-none tracking-tight sm:text-[1.05rem]">
             Baloch <span className="text-gold">Export Hub</span>
           </span>
-          <span className="mt-1.5 block text-[0.58rem] font-medium uppercase tracking-[0.28em] text-faint">
+          <span className="mt-1 hidden whitespace-nowrap text-[0.5rem] font-medium uppercase tracking-[0.12em] text-faint min-[480px]:block sm:mt-1.5 sm:text-[0.58rem] sm:tracking-[0.22em] lg:tracking-[0.28em]">
             Craft • Culture • Trade
           </span>
         </span>
@@ -125,7 +125,7 @@ export function SectionHeading({
       {eyebrow && (
         <Reveal>
           <p className={cn(
-            'mb-3 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.22em]',
+            'mb-3 inline-flex max-w-full items-center gap-2 rounded-full border px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.12em] sm:px-4 sm:text-[0.7rem] sm:tracking-[0.22em]',
             light ? 'border-white/25 text-gold' : 'border-line text-brand dark:text-gold',
           )}>
             <Sparkles size={13} aria-hidden /> {eyebrow}
@@ -134,7 +134,7 @@ export function SectionHeading({
       )}
       <Reveal delay={0.05}>
         <h2 className={cn(
-          'font-display text-3xl font-semibold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]',
+          'font-display text-[1.7rem] font-semibold leading-[1.12] tracking-tight sm:text-3xl md:text-4xl lg:text-[2.75rem]',
           light ? 'text-white' : 'text-fg',
         )}>
           {title}
@@ -260,13 +260,13 @@ export function Modal({
           role="dialog" aria-modal="true" aria-label={title}
         >
           <motion.div
-            className={cn('card relative my-8 w-full p-6 shadow-2xl', wide ? 'max-w-3xl' : 'max-w-lg')}
+            className={cn('card relative my-8 w-full p-4 shadow-2xl sm:p-6', wide ? 'max-w-3xl' : 'max-w-lg')}
             initial={{ opacity: 0, y: 24, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-4 flex items-center justify-between gap-4">
-              {title && <h3 className="font-display text-xl font-semibold">{title}</h3>}
+            <div className="mb-4 flex items-start justify-between gap-3">
+              {title && <h3 className="min-w-0 flex-1 font-display text-lg font-semibold sm:text-xl">{title}</h3>}
               <button onClick={onClose} className="rounded-full p-2 text-muted transition hover:bg-surface-2 hover:text-fg" aria-label="Close dialog">
                 <X size={18} />
               </button>

@@ -13,7 +13,7 @@ import {
 export function OrderBadge({ status }: { status: OrderStatus }) {
   const canonical = normalizeOrderStatus(status)
   return (
-    <span className={cn('inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-wide', ORDER_STATUS_COLOR[canonical])}>
+    <span className={cn('inline-flex max-w-full items-center gap-1.5 rounded-full border px-2 py-1 text-[0.62rem] font-bold uppercase tracking-wide sm:px-2.5 sm:text-[0.7rem]', ORDER_STATUS_COLOR[canonical])}>
       {canonical === 'on_way' && <Truck size={12} />}
       {ORDER_STATUS_LABEL[canonical]}
     </span>
@@ -33,26 +33,26 @@ export function StatusStepper({ status }: { status: OrderStatus }) {
   }
   const idx = buyerTrackIndex(canonical)
   return (
-    <ol className="flex items-center" aria-label="Order progress">
+    <ol className="flex items-center overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch] sm:items-start" aria-label="Order progress">
       {FLOW.map((s, i) => {
         const done = i <= idx
         const active = i === idx
         return (
-          <li key={s} className={cn('flex items-center', i < FLOW.length - 1 && 'flex-1')}>
+          <li key={s} className={cn('flex min-w-0 items-center', i < FLOW.length - 1 && 'flex-1')}>
             <div className="flex flex-col items-center gap-1.5">
               <span className={cn(
-                'grid h-8 w-8 place-items-center rounded-full border-2 transition-all',
+                'grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 transition-all sm:h-8 sm:w-8',
                 done ? 'border-brand bg-brand text-onbrand' : 'border-line text-faint',
                 active && 'ring-2 ring-gold/50',
               )}>
                 {done ? <CheckCircle2 size={15} /> : <Circle size={13} />}
               </span>
-              <span className={cn('text-[0.62rem] font-semibold uppercase tracking-wide', done ? 'text-fg' : 'text-faint')}>
+              <span className={cn('hidden max-w-[4.5rem] text-center text-[0.58rem] font-semibold uppercase tracking-wide sm:block', done ? 'text-fg' : 'text-faint')}>
                 {ORDER_STATUS_LABEL[s]}
               </span>
             </div>
             {i < FLOW.length - 1 && (
-              <span className={cn('mx-1 -mt-5 h-0.5 flex-1 rounded-full sm:mx-2', i < idx ? 'bg-brand' : 'bg-line')} />
+              <span className={cn('mx-1 h-0.5 min-w-4 flex-1 rounded-full sm:mx-2 sm:-mt-5', i < idx ? 'bg-brand' : 'bg-line')} />
             )}
           </li>
         )

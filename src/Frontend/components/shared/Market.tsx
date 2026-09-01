@@ -53,13 +53,13 @@ export function ProductCard({ product, className }: { product: Product; classNam
       )}
 
       <div className="flex flex-1 flex-col p-4">
-        <div className="mb-1.5 flex items-center gap-2 text-[0.7rem] text-faint">
+        <div className="mb-1.5 flex min-w-0 items-center gap-2 text-[0.7rem] text-faint">
           {store && (
-            <Link to={`/store/${store.slug}`} className="truncate font-semibold transition hover:text-gold">
+            <Link to={`/store/${store.slug}`} className="min-w-0 truncate font-semibold transition hover:text-gold">
               {store.name}
             </Link>
           )}
-          <span className="ml-auto inline-flex items-center gap-0.5"><MapPin size={11} /> {product.location}</span>
+          <span className="ml-auto inline-flex min-w-0 max-w-[45%] items-center gap-0.5 truncate"><MapPin size={11} className="shrink-0" /> <span className="truncate">{product.location}</span></span>
         </div>
         <Link to={`/product/${product.id}`} className="line-clamp-2 font-medium leading-snug transition group-hover:text-brand dark:group-hover:text-gold">
           {product.name}

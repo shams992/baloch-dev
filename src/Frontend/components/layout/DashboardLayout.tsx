@@ -27,6 +27,12 @@ export function DashboardLayout({
 
   useEffect(() => { setOpen(false) }, [location.pathname])
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [open])
 
   if (!user) return null
   const current = items.find((i) => (i.end ? location.pathname === i.to : location.pathname.startsWith(i.to)))
@@ -45,12 +51,12 @@ export function DashboardLayout({
       </AnimatePresence>
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-[95] flex w-[268px] flex-col border-r border-line bg-surface transition-transform duration-300 lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-[95] flex w-[min(268px,86vw)] max-w-[268px] flex-col overflow-y-auto border-r border-line bg-surface transition-transform duration-300 lg:w-[268px] lg:translate-x-0',
           open ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="flex h-16 items-center justify-between border-b border-line px-5">
-          <Logo />
+        <div className="flex h-16 items-center justify-between gap-2 border-b border-line px-4 sm:px-5">
+          <div className="min-w-0"><Logo /></div>
           <button className="rounded-lg p-1.5 text-muted hover:bg-surface-2 lg:hidden" onClick={() => setOpen(false)} aria-label="Close sidebar">
             <X size={18} />
           </button>
@@ -113,19 +119,19 @@ export function DashboardLayout({
 
       {/* main column */}
       <div className="lg:pl-[268px]">
-        <header className="sticky top-0 z-[80] flex h-16 items-center gap-3 border-b border-line bg-bg/85 px-4 backdrop-blur-lg sm:px-7">
-          <button className="rounded-lg p-2 text-muted hover:bg-surface-2 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
+        <header className="sticky top-0 z-[80] flex h-16 items-center gap-2 border-b border-line bg-bg/85 px-3 backdrop-blur-lg sm:gap-3 sm:px-7">
+          <button className="shrink-0 rounded-lg p-2 text-muted hover:bg-surface-2 lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
             <Menu size={19} />
           </button>
-          <h1 className="font-display text-lg font-semibold tracking-tight">
+          <h1 className="min-w-0 flex-1 truncate font-display text-base font-semibold tracking-tight sm:text-lg">
             {current?.label ?? title}
           </h1>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
             <ThemeSwitcher compact />
             <NotificationsBell />
           </div>
         </header>
-        <main className="px-4 py-7 sm:px-7 lg:px-10">
+        <main className="px-3 py-5 sm:px-7 sm:py-7 lg:px-10">
           <Outlet />
         </main>
       </div>

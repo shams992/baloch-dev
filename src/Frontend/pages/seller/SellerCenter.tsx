@@ -83,7 +83,7 @@ export function SellerOverview() {
         <Button to="/products" variant="gold" size="sm">Connect with Marketplace</Button>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((c, i) => (
           <Reveal key={c.label} delay={i * 0.06}>
             <div className="rounded-2xl border border-line bg-surface p-5">
@@ -189,7 +189,7 @@ export function SellerEarnings() {
         <AreaChart className="mt-4" data={series} labels={months.map(monthLabel)} format={(n) => formatMoney(n)} />
       </section>
 
-      <section className="card overflow-x-auto p-6" aria-labelledby="earn-table">
+      <section className="card table-scroll p-6" aria-labelledby="earn-table">
         <h3 id="earn-table" className="font-display text-lg font-semibold">Per-order breakdown</h3>
         <table className="mt-4 w-full min-w-[36rem] text-sm">
           <thead>
@@ -250,7 +250,7 @@ export function SellerCustomers() {
       {list.length === 0 ? (
         <EmptyState icon={<Users size={26} />} title="No customers yet" sub="Your first order will introduce them." />
       ) : (
-        <div className="card overflow-x-auto p-6">
+        <div className="card table-scroll p-6">
           <table className="w-full min-w-[34rem] text-sm">
             <thead>
               <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-faint">

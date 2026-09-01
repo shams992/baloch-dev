@@ -27,7 +27,7 @@ export function AdminProducts() {
         ))}
       </div>
 
-      <div className="card overflow-x-auto p-5">
+      <div className="card table-scroll p-5">
         <table className="w-full min-w-[50rem] text-sm">
           <thead>
             <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-faint">

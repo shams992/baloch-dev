@@ -35,12 +35,12 @@ export function BuyerOverview() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm text-muted">Salaam,</p>
-          <h2 className="font-display text-3xl font-semibold">{user.full_name.split(' ')[0]} 👋</h2>
+          <h2 className="font-display text-2xl font-semibold sm:text-3xl">{user.full_name.split(' ')[0]} 👋</h2>
         </div>
         <Button to="/products" variant="gold" size="sm">Discover something new <ArrowRight size={14} /></Button>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s, i) => (
           <Reveal key={s.label} delay={i * 0.06}>
             <Link to={s.to} className="group block rounded-2xl border border-line bg-surface p-5 transition hover:-translate-y-1 hover:border-gold/40">

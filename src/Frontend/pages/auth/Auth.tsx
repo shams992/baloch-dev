@@ -40,16 +40,16 @@ function AuthShell({ side, children, title, sub }: {
       </div>
 
       {/* form side */}
-      <div className="flex flex-col px-5 py-8 sm:px-10 lg:px-16">
-        <div className="flex items-center justify-between">
-          <Logo />
-          <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted transition hover:text-fg">
+      <div className="flex min-h-screen min-w-0 flex-col px-4 py-6 sm:px-10 sm:py-8 lg:px-16">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0"><Logo /></div>
+          <Link to="/" className="inline-flex shrink-0 items-center gap-1.5 text-xs text-muted transition hover:text-fg sm:text-sm">
             <X size={14} /> Back to home
           </Link>
         </div>
-        <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-12">
+        <div className="mx-auto flex w-full max-w-md min-w-0 flex-1 flex-col justify-center py-8 sm:py-12">
           <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="font-display text-3xl font-semibold tracking-tight">{title}</h1>
+            <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
             <p className="mt-2 text-sm text-muted">{sub}</p>
             {children}
           </motion.div>
@@ -119,7 +119,7 @@ export function LoginPage() {
             </button>
           </div>
         </Field>
-        {error && <p role="alert" className="rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">{error}</p>}
+        {error && <p role="alert" className="break-words rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">{error}</p>}
         <Button type="submit" variant="primary" className="w-full" size="lg" disabled={submitting}>
           {submitting ? 'Signing in…' : <>Sign in <ArrowRight size={16} /></>}
         </Button>
@@ -210,7 +210,7 @@ export function RegisterPage() {
             </div>
           </Field>
         </div>
-        {error && <p role="alert" className="rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">{error}</p>}
+        {error && <p role="alert" className="break-words rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">{error}</p>}
         <Button type="submit" variant="gold" size="lg" className="w-full" disabled={submitting}>
           {submitting ? 'Creating account…' : <><Store size={17} /> Create my free account</>}
         </Button>

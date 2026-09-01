@@ -40,7 +40,7 @@ export function AdminOverview() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((c, i) => (
           <Reveal key={c.label} delay={i * 0.06}>
             <Link to={c.to} className="group block rounded-2xl border border-line bg-surface p-5 transition hover:-translate-y-1 hover:border-gold/40">
@@ -82,7 +82,7 @@ export function AdminOverview() {
           <h3 id="ad-orders" className="font-display text-lg font-semibold">Latest orders</h3>
           <Link to="/admin/orders" className="text-sm font-semibold text-brand hover:underline dark:text-gold">All orders</Link>
         </div>
-        <div className="mt-4 overflow-x-auto">
+        <div className="mt-4 table-scroll">
           <table className="w-full min-w-[38rem] text-sm">
             <thead>
               <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-faint">
@@ -147,7 +147,7 @@ export function AdminRevenue() {
         <AreaChart className="mt-4" data={revenueSeries} labels={months.map(monthLabel)} format={(n) => formatMoney(n)} />
       </section>
 
-      <section className="card overflow-x-auto p-6" aria-labelledby="rev-stores">
+      <section className="card table-scroll p-6" aria-labelledby="rev-stores">
         <h3 id="rev-stores" className="font-display text-lg font-semibold">Store earnings</h3>
         <table className="mt-4 w-full min-w-[40rem] text-sm">
           <thead>

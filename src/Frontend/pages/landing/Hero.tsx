@@ -49,12 +49,12 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-gold backdrop-blur"
+          className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-gold backdrop-blur sm:px-4 sm:text-[0.72rem] sm:tracking-[0.2em]"
         >
           <Sparkles size={13} aria-hidden /> The Balochi creators’ marketplace
         </motion.p>
 
-        <h1 className="font-display text-[2.6rem] font-semibold leading-[1.06] tracking-tight sm:text-6xl lg:text-[4.4rem]">
+        <h1 className="font-display text-[2rem] font-semibold leading-[1.06] tracking-tight sm:text-[2.6rem] md:text-6xl lg:text-[4.4rem]">
           {['Connecting', 'Balochi', 'Creativity', 'With', 'the', 'World'].map((word, i) => (
             <motion.span
               key={i}
@@ -110,8 +110,8 @@ export function Hero() {
           className="glass mx-auto mt-12 max-w-2xl rounded-3xl p-2 shadow-[0_24px_70px_-30px_rgb(0_0_0/0.5)] transition-shadow focus-within:shadow-[0_24px_80px_-24px_color-mix(in_oklab,var(--gold)_55%,transparent)]"
           role="search"
         >
-          <div className="flex items-center gap-2">
-            <Search size={19} className="ml-3 shrink-0 text-gold" aria-hidden />
+          <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+            <Search size={19} className="ml-2 shrink-0 text-gold sm:ml-3" aria-hidden />
             <label htmlFor="hero-search" className="sr-only">Search the platform</label>
             <input
               id="hero-search"
@@ -119,9 +119,9 @@ export function Hero() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search products, categories or creators…"
-              className="w-full bg-transparent py-3.5 text-[0.95rem] text-fg placeholder:text-faint focus:outline-none"
+              className="min-w-0 w-full bg-transparent py-3 text-[0.95rem] text-fg placeholder:text-faint focus:outline-none sm:py-3.5"
             />
-            <button type="submit" className="btn btn-primary shrink-0 !rounded-2xl px-5 py-3 text-sm">
+            <button type="submit" className="btn btn-primary shrink-0 !rounded-2xl px-3 py-2.5 text-sm sm:px-5 sm:py-3">
               Search
             </button>
           </div>

@@ -25,7 +25,7 @@ export function AdminUsers({ role }: { role?: Role }) {
         <p className="text-sm text-muted tnum">{filtered.length} user{filtered.length === 1 ? '' : 's'}</p>
       </div>
 
-      <div className="card overflow-x-auto p-5">
+      <div className="card table-scroll p-5">
         <table className="w-full min-w-[44rem] text-sm">
           <thead>
             <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-faint">

@@ -27,14 +27,14 @@ export function BuyerProfile() {
   }
 
   return (
-    <form onSubmit={save} className="card max-w-2xl space-y-5 p-7">
-      <div className="flex items-center gap-5">
-        <span className="grid h-20 w-20 place-items-center rounded-2xl font-display text-2xl font-bold text-white" style={{ background: `linear-gradient(135deg, ${f.avatar_color}, ${f.avatar_color}bb)` }}>
+    <form onSubmit={save} className="card max-w-2xl space-y-5 p-4 sm:p-7">
+      <div className="flex min-w-0 items-center gap-4 sm:gap-5">
+        <span className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl font-display text-2xl font-bold text-white sm:h-20 sm:w-20" style={{ background: `linear-gradient(135deg, ${f.avatar_color}, ${f.avatar_color}bb)` }}>
           {f.full_name.split(' ').slice(0, 2).map((w) => w[0]).join('')}
         </span>
-        <div>
-          <p className="text-sm font-semibold">{user.email}</p>
-          <div className="mt-1.5 flex gap-2">
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold">{user.email}</p>
+          <div className="mt-1.5 flex flex-wrap gap-2">
             <Badge tone="brand">{user.role}</Badge>
             <Badge>Member since {new Date(user.created_at).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</Badge>
           </div>

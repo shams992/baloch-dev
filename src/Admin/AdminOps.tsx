@@ -48,7 +48,7 @@ export function AdminOrders() {
         ))}
       </div>
       <div className="card overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="table-scroll">
           <table className="w-full min-w-[46rem] text-sm">
             <thead>
               <tr className="border-b border-line text-left text-xs uppercase tracking-wider text-faint">

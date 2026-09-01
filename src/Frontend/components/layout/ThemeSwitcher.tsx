@@ -38,7 +38,7 @@ export function ThemeSwitcher({ compact = false }: { compact?: boolean }) {
         <div
           role="listbox"
           aria-label="Choose theme"
-          className="card absolute right-0 top-11 z-[120] w-56 overflow-hidden p-1.5 shadow-2xl"
+          className="card absolute right-0 top-11 z-[120] w-56 max-w-[calc(100vw-1rem)] overflow-hidden p-1.5 shadow-2xl"
         >
           {THEME_OPTIONS.map((opt) => (
             <ThemeOption

@@ -41,6 +41,13 @@ export default function Navbar() {
   useEffect(() => { setOpen(false); setMenu(false) }, [location.pathname])
 
   useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [open])
+
+  useEffect(() => {
     const h = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenu(false)
     }
@@ -65,8 +72,10 @@ export default function Navbar() {
           : 'border-b border-transparent bg-transparent',
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-        <Logo />
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+        <div className="min-w-0 flex-1 xl:flex-none">
+          <Logo />
+        </div>
 
         <ul className="hidden items-center gap-0.5 xl:flex">
           {LINKS.map((l) => (
@@ -94,8 +103,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <ThemeSwitcher compact />
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-2">
+          <span className="hidden min-[360px]:inline-flex"><ThemeSwitcher compact /></span>
 
           {user && (
             <>
@@ -122,14 +131,14 @@ export default function Navbar() {
                 aria-label="Account menu" aria-expanded={menu}
               >
                 <Avatar name={user.full_name} color={user.avatar_color} size={32} />
-                <ChevronDown size={14} className={cn('text-muted transition-transform', menu && 'rotate-180')} />
+                <ChevronDown size={14} className={cn('hidden text-muted transition-transform sm:block', menu && 'rotate-180')} />
               </button>
               <AnimatePresence>
                 {menu && (
                   <motion.div
                     initial={{ opacity: 0, y: 8, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 6, scale: 0.98 }}
                     transition={{ duration: 0.18 }}
-                    className="card absolute right-0 top-12 w-60 overflow-hidden p-2 shadow-2xl"
+                    className="card absolute right-0 top-12 w-60 max-w-[calc(100vw-1rem)] overflow-hidden p-2 shadow-2xl"
                   >
                     <div className="border-b border-line px-3 py-2.5">
                       <p className="truncate text-sm font-semibold">{user.full_name}</p>
@@ -178,7 +187,7 @@ export default function Navbar() {
           <motion.div
             initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="glass overflow-hidden border-t border-line/60 xl:hidden"
+            className="glass max-h-[min(80vh,calc(100dvh-4rem))] overflow-y-auto overflow-x-hidden border-t border-line/60 xl:hidden"
           >
             <ul className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
               {LINKS.map((l, i) => (
@@ -195,6 +204,44 @@ export default function Navbar() {
                   </NavLink>
                 </motion.li>
               ))}
+              <motion.li initial={{ opacity: 0, x: -14 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.03 * LINKS.length }}>
+                <NavLink
+                  to="/products"
+                  className={({ isActive }) => cn(
+                    'flex items-center rounded-xl px-4 py-3 text-[0.95rem] font-medium',
+                    isActive ? 'bg-gold/10 text-gold' : 'text-fg hover:bg-surface-2',
+                  )}
+                >
+                  Marketplace
+                </NavLink>
+              </motion.li>
+              {user && (
+                <li className="mt-2 space-y-0.5 border-t border-line/60 pt-2">
+                  <NavLink to={dashboardTo} className="flex items-center gap-2.5 rounded-xl px-4 py-3 text-[0.95rem] font-medium text-fg hover:bg-surface-2">
+                    <LayoutDashboard size={16} className="text-muted" /> Dashboard
+                  </NavLink>
+                  <NavLink to={`${dashboardTo}/messages`} className="flex items-center gap-2.5 rounded-xl px-4 py-3 text-[0.95rem] font-medium text-fg hover:bg-surface-2">
+                    <MessageCircle size={16} className="text-muted" /> Messages
+                    {unreadMsgs > 0 && <span className="ml-auto grid h-5 min-w-5 place-items-center rounded-full bg-crimson px-1.5 text-[0.65rem] font-bold text-white">{unreadMsgs}</span>}
+                  </NavLink>
+                  <NavLink to="/dashboard/orders" className="flex items-center gap-2.5 rounded-xl px-4 py-3 text-[0.95rem] font-medium text-fg hover:bg-surface-2">
+                    <Package size={16} className="text-muted" /> My Orders
+                  </NavLink>
+                  <NavLink to="/dashboard/settings" className="flex items-center gap-2.5 rounded-xl px-4 py-3 text-[0.95rem] font-medium text-fg hover:bg-surface-2">
+                    <Settings size={16} className="text-muted" /> Profile & settings
+                  </NavLink>
+                  <div className="flex items-center justify-between rounded-xl px-4 py-2 min-[360px]:hidden">
+                    <span className="text-[0.95rem] font-medium">Theme</span>
+                    <ThemeSwitcher compact />
+                  </div>
+                  <button
+                    onClick={() => { auth.signOut(); window.location.assign('/') }}
+                    className="flex w-full items-center gap-2.5 rounded-xl px-4 py-3 text-[0.95rem] font-medium text-rose-500 hover:bg-rose-500/10"
+                  >
+                    <LogOut size={16} /> Sign out
+                  </button>
+                </li>
+              )}
               {!user && (
                 <li className="mt-3 grid grid-cols-2 gap-2">
                   <Button to="/login" variant="ghost">Login</Button>

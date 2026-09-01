@@ -61,9 +61,9 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
           <div>
-            <Link to="/" className="inline-flex items-center gap-2.5" aria-label="Baloch Export Hub — home">
-              <Octagram size={34} />
-              <span className="font-display text-lg font-semibold">Baloch Export Hub</span>
+            <Link to="/" className="inline-flex min-w-0 items-center gap-2.5" aria-label="Baloch Export Hub — home">
+              <Octagram size={34} className="h-7 w-7 shrink-0 sm:h-[34px] sm:w-[34px]" />
+              <span className="truncate font-display text-base font-semibold sm:text-lg">Baloch Export Hub</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               A multi-vendor marketplace taking Balochi creativity — embroidery, craft, art, food and words — from local
@@ -71,8 +71,8 @@ export default function Footer() {
             </p>
             <div className="mt-5 space-y-2 text-sm text-muted">
               <p className="flex items-center gap-2"><MapPin size={15} className="text-gold" /> Quetta · Gwadar · Karachi</p>
-              <a href="mailto:support@balochexporthub.com" className="flex items-center gap-2 transition hover:text-fg">
-                <Mail size={15} className="text-gold" /> support@balochexporthub.com
+              <a href="mailto:support@balochexporthub.com" className="flex items-start gap-2 break-all transition hover:text-fg sm:items-center sm:break-normal">
+                <Mail size={15} className="mt-0.5 shrink-0 text-gold sm:mt-0" /> support@balochexporthub.com
               </a>
             </div>
           </div>

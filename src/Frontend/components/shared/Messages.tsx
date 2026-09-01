@@ -51,7 +51,7 @@ export function MessagesView({ perspective }: { perspective: 'buyer' | 'seller' 
   }
 
   return (
-    <div className="card grid h-[calc(100vh-11rem)] min-h-[30rem] grid-cols-1 overflow-hidden md:grid-cols-[20rem_1fr]">
+    <div className="card grid h-[calc(100dvh-11rem)] min-h-[18rem] min-w-0 grid-cols-1 overflow-hidden sm:min-h-[30rem] md:grid-cols-[min(20rem,40vw)_1fr]">
       {/* conversation list */}
       <div className={`flex flex-col border-line md:border-r ${active ? 'hidden md:flex' : 'flex'}`}>
         <div className="border-b border-line p-3.5">

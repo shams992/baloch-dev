@@ -93,10 +93,10 @@ export function ProductPage() {
                 <span className="absolute left-4 top-4"><Badge tone="gold">✦ Handmade by the seller</Badge></span>
               )}
             </div>
-            <div className="mt-4 grid grid-cols-3 gap-3 text-center text-[0.72rem] text-muted">
-              <p className="card flex items-center justify-center gap-2 p-3"><ShieldCheck size={15} className="text-brand dark:text-gold" /> Buyer protection</p>
-              <p className="card flex items-center justify-center gap-2 p-3"><Truck size={15} className="text-brand dark:text-gold" /> {product.shipping_days}</p>
-              <p className="card flex items-center justify-center gap-2 p-3"><BadgeCheck size={15} className="text-brand dark:text-gold" /> Verified store</p>
+            <div className="mt-4 grid grid-cols-1 gap-3 text-center text-[0.72rem] text-muted sm:grid-cols-3">
+              <p className="card flex items-center justify-center gap-2 p-3"><ShieldCheck size={15} className="shrink-0 text-brand dark:text-gold" /> Buyer protection</p>
+              <p className="card flex items-center justify-center gap-2 p-3"><Truck size={15} className="shrink-0 text-brand dark:text-gold" /> {product.shipping_days}</p>
+              <p className="card flex items-center justify-center gap-2 p-3"><BadgeCheck size={15} className="shrink-0 text-brand dark:text-gold" /> Verified store</p>
             </div>
           </div>
 
@@ -112,7 +112,7 @@ export function ProductPage() {
               </span>
             </Link>
 
-            <h1 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight">{product.name}</h1>
+            <h1 className="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">{product.name}</h1>
 
             <div className="mt-3 flex flex-wrap items-center gap-4">
               <StarRating rating={product.rating} count={product.review_count} size={16} />
@@ -122,7 +122,7 @@ export function ProductPage() {
                 : <Badge tone="red">Out of stock</Badge>}
             </div>
 
-            <p className="mt-5 font-display text-4xl font-semibold tnum">
+            <p className="mt-5 font-display text-3xl font-semibold tnum sm:text-4xl">
               {formatMoney(product.price, product.currency)}
               <span className="ml-2 align-middle text-xs font-normal text-faint">+ {formatMoney(product.shipping_fee, product.currency)} shipping</span>
             </p>
@@ -220,7 +220,7 @@ export function ProductPage() {
       <Modal open={askOpen} onClose={() => setAskOpen(false)} title={`Message ${store.name}`}>
         <p className="text-sm text-muted">Ask about availability, custom options or delivery — conversations stay on the platform for your safety.</p>
         <textarea id="ask-message" name="message" className="field mt-4" rows={4} value={ask} onChange={(e) => setAsk(e.target.value)} aria-label="Your message" />
-        <div className="mt-4 flex justify-end gap-3">
+        <div className="mt-4 flex flex-wrap justify-end gap-3">
           <Button variant="ghost" onClick={() => setAskOpen(false)}>Cancel</Button>
           <Button variant="primary" onClick={sendAsk}>Send message</Button>
         </div>
@@ -236,7 +236,7 @@ export function ProductPage() {
           <Field label="Your review" required>
             <textarea id="review-text" name="review" className="field" rows={4} value={reviewText} onChange={(e) => setReviewText(e.target.value)} placeholder="How was the piece, the packing, the delivery?" required />
           </Field>
-          <div className="flex justify-end gap-3">
+          <div className="flex flex-wrap justify-end gap-3">
             <Button variant="ghost" onClick={() => setReviewOpen(false)}>Cancel</Button>
             <Button type="submit" variant="gold">Publish review</Button>
           </div>
