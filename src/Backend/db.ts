@@ -10,7 +10,7 @@ import type {
   Address, CanonicalOrderStatus, Category, Conversation, DBState, Message, Notification, Order,
   OrderStatus, OrderStatusHistory, Product, Profile, Report, Review, Role, Store,
 } from './types'
-import { getSupabase, isSupabaseConfigured, clearStoredAuthTokens } from './supabase'
+import { getSupabase, isSupabaseConfigured, clearStoredAuthTokens, SUPABASE_MISSING_CONFIG_MESSAGE } from './supabase'
 import { normalizeOrderStatus, slugify } from './util'
 
 const nowIso = () => new Date().toISOString()
@@ -333,7 +333,7 @@ export const auth = {
 
   async signIn(email: string, password: string): Promise<{ ok: boolean; error?: string; user?: Profile }> {
     let supabase
-    try { supabase = getSupabase() } catch (e: any) { return { ok: false, error: e?.message ?? 'Supabase is not configured. Please check your environment variables.' } }
+    try { supabase = getSupabase() } catch (e: any) { return { ok: false, error: e?.message ?? SUPABASE_MISSING_CONFIG_MESSAGE } }
 
     // ── Clear any lingering session before signing in ────────────
     // If a previous session is still cached client-side, signInWithPassword
@@ -406,7 +406,7 @@ export const auth = {
 
   async signUp(data: { full_name: string; username: string; email: string; password: string }): Promise<{ ok: boolean; error?: string; user?: Profile }> {
     let supabase
-    try { supabase = getSupabase() } catch (e: any) { return { ok: false, error: e?.message ?? 'Supabase is not configured. Please check your environment variables.' } }
+    try { supabase = getSupabase() } catch (e: any) { return { ok: false, error: e?.message ?? SUPABASE_MISSING_CONFIG_MESSAGE } }
     const { data: settings } = await supabase.from('platform_settings').select('allow_registrations').eq('id', 1).single()
     if (settings && !settings.allow_registrations) return { ok: false, error: 'Registrations are temporarily closed.' }
     // Check email/username availability via RPC (bypasses RLS for pre-signup validation)

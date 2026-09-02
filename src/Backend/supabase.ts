@@ -23,6 +23,11 @@ export const isSupabaseConfigured = Boolean(
   SUPABASE_URL && SUPABASE_ANON_KEY && isValidSupabaseUrl(SUPABASE_URL) && SUPABASE_ANON_KEY.length > 20,
 )
 
+/** Shown on login/register when Vite was built without the public Supabase keys. */
+export const SUPABASE_MISSING_CONFIG_MESSAGE = import.meta.env.PROD
+  ? 'Supabase is not configured on this deployment. In Vercel go to Settings → Environment Variables, add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY (same values as your local .env), then Redeploy the project.'
+  : 'Supabase is not configured. Set your real VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
+
 let client: SupabaseClient | null = null
 
 /**
@@ -94,7 +99,7 @@ export function getSupabase(): SupabaseClient {
   if (!client) {
     if (!isSupabaseConfigured) {
       throw new Error(
-        'Supabase is not configured. Set your real VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.',
+        SUPABASE_MISSING_CONFIG_MESSAGE,
       )
     }
     clearStaleSession()

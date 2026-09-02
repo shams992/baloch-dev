@@ -56,8 +56,19 @@ The app boots in **demo mode** with a fully seeded marketplace (13 users, 9 stor
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. Run **`supabase/schema.sql`** in the SQL editor — it creates all 17 tables (`profiles`, `seller_stores`, `categories`, `products`, `product_images`, `cart_items`, `wishlist`, `orders`, `order_items`, `payments`, `reviews`, `conversations`, `messages`, `notifications`, `addresses`, `platform_settings`, `reports`) with foreign keys, indexes, constraints, **RLS policies**, and the four **storage buckets**.
-3. Copy `.env.example` → `.env` and fill in your project URL + **anon** key (never the service-role key).
+3. Copy `.env.example` → `.env` and fill in your project URL + **anon** / **publishable** key (never the service-role key).
 4. Port the function bodies in `src/lib/db.ts` onto `supabase.from('<table>')` queries — the demo backend was written to mirror the SQL schema 1:1, and `src/lib/supabase.ts` already exposes a lazily-created browser client. Auth moves to `supabase.auth` (the `profiles` trigger in the schema creates the profile row automatically on signup).
+
+### Deploy on Vercel
+
+`.env` is gitignored, so GitHub → Vercel does **not** copy your keys. Login will fail until you add them on Vercel:
+
+1. Vercel → your project → **Settings** → **Environment Variables**.
+2. Add (Production + Preview):
+   - `VITE_SUPABASE_URL` — `https://<project-ref>.supabase.co`
+   - `VITE_SUPABASE_ANON_KEY` — the anon or `sb_publishable_…` key from Supabase → **Project Settings → API**.
+3. **Redeploy** (Deployments → ⋮ → Redeploy). Vite only reads `VITE_*` at build time; saving env vars without a rebuild will not fix login.
+4. In Supabase → **Authentication → URL Configuration**, set **Site URL** to your Vercel domain (`https://your-app.vercel.app`) and add that origin under **Redirect URLs**.
 
 ## Design system
 

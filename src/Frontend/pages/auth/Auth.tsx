@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Eye, EyeOff, Lock, Mail, ShieldCheck, Store, User, X } from 'lucide-react'
 import { Button, Field, Logo, Octagram } from '@/components/ui'
 import { auth } from '@/lib/db'
+import { isSupabaseConfigured, SUPABASE_MISSING_CONFIG_MESSAGE } from '@/lib/supabase'
 import { homeFor } from '@/components/layout/PublicLayout'
 import type { Profile } from '@/lib/types'
 
@@ -104,6 +105,11 @@ export function LoginPage() {
   return (
     <AuthShell side="login" title="Welcome back" sub="Sign in to your buyer, seller or admin account.">
       <form onSubmit={signIn} className="mt-8 space-y-5" noValidate>
+        {!isSupabaseConfigured && (
+          <p role="alert" className="break-words rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">
+            {SUPABASE_MISSING_CONFIG_MESSAGE}
+          </p>
+        )}
         <Field label="Email" required>
           <div className="relative">
             <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-faint" />
@@ -120,7 +126,7 @@ export function LoginPage() {
           </div>
         </Field>
         {error && <p role="alert" className="break-words rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">{error}</p>}
-        <Button type="submit" variant="primary" className="w-full" size="lg" disabled={submitting}>
+        <Button type="submit" variant="primary" className="w-full" size="lg" disabled={submitting || !isSupabaseConfigured}>
           {submitting ? 'Signing in…' : <>Sign in <ArrowRight size={16} /></>}
         </Button>
       </form>
@@ -175,6 +181,11 @@ export function RegisterPage() {
   return (
     <AuthShell side="register" title="Create your free account" sub="Free forever. Starts as a buyer account — open your store any time.">
       <form onSubmit={submit} className="mt-8 space-y-5" noValidate>
+        {!isSupabaseConfigured && (
+          <p role="alert" className="break-words rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">
+            {SUPABASE_MISSING_CONFIG_MESSAGE}
+          </p>
+        )}
         <Field label="Full name" required>
           <div className="relative">
             <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-faint" />
@@ -211,7 +222,7 @@ export function RegisterPage() {
           </Field>
         </div>
         {error && <p role="alert" className="break-words rounded-xl bg-rose-500/10 px-4 py-2.5 text-sm text-rose-500">{error}</p>}
-        <Button type="submit" variant="gold" size="lg" className="w-full" disabled={submitting}>
+        <Button type="submit" variant="gold" size="lg" className="w-full" disabled={submitting || !isSupabaseConfigured}>
           {submitting ? 'Creating account…' : <><Store size={17} /> Create my free account</>}
         </Button>
       </form>
